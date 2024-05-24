@@ -26,6 +26,7 @@ int main(int argc, char* argv[]) {
       log("connected");
       while((bytes_recv = recv(client_socket, buffer, sizeof(buffer), 0)) <= 0){}
       std::string filename = parse(buffer, " ");
+      printf("%s\n", buffer);
 
       std::string header = "HTTP/1.1 200 OK\nContent-Type: text/html\nContent-Length: ";
       std::string message = get_file_content(filename);

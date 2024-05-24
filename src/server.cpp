@@ -1,6 +1,5 @@
 #include "webserv.h"
 
-
 char const *parse(const char* line, const char symbol[]){
     char *copy = (char *)malloc(strlen(line) + 1);
     strcpy(copy, line);
@@ -13,9 +12,10 @@ char const *parse(const char* line, const char symbol[]){
       token = strtok(NULL, " ");
       if(current == 0){
           message = token;
-          if(message == NULL){
+          if(message == NULL)
               message = "";
-          }
+          if (std::strcmp(message, "/") == 0) 
+             return "/index.html";
           return message;
       }
       current = current + 1;
@@ -33,7 +33,7 @@ std::string get_file_content(std::string filename){
    file.open(filename);
    if (!file.is_open()) {
       printf("cannot open the file: %s\n", filename.c_str());
-      return "[!] the page is not found";
+      return get_file_content("/error.html");
    }
    else {
       while(getline(file, line)) result+=line;
